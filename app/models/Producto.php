@@ -12,7 +12,7 @@ class Producto
         $this->conexion = $database->conectar();
     }
 
-    // Listar todos los productos
+   
     public function listar()
     {
         $sql = "SELECT 
