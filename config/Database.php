@@ -2,29 +2,41 @@
 
 class Database
 {
-    private $host = "localhost";
-    private $db_name = "house_technology";
-    private $username = "root";
-    private $password = "";
-
-    private $port = "3306";
+    private $host;
+    private $port;
+    private $dbname;
+    private $username;
+    private $password;
 
     public function __construct()
     {
-        $env = parse_ini_file(__DIR__ . "/../.env");
+        $env = parse_ini_file(__DIR__ . '/../.env');
+
         $this->host = $env['DB-HOST'];
-        $this->db_name = $env['DB-NAME'];
+        $this->port = $env['DB-PORT'];
+        $this->dbname = $env['DB-NAME'];
         $this->username = $env['DB-USERNAME'];
         $this->password = $env['DB-PASSWORD'];
-        $this->port = $env['DB-PORT'];
     }
 
     public function conectar()
     {
-        return new PDO(
-            "mysql:host={$this->host};dbname={$this->db_name}",
-            $this->username,
-            $this->password
-        );
+        try {
+            $conexion = new PDO(
+                "mysql:host={$this->host};port={$this->port};dbname={$this->dbname}",
+                $this->username,
+                $this->password
+            );
+
+            $conexion->setAttribute(
+                PDO::ATTR_ERRMODE,
+                PDO::ERRMODE_EXCEPTION
+            );
+
+            return $conexion;
+
+        } catch (PDOException $e) {
+            echo "Error al conectar: " . $e->getMessage();
+        }
     }
 }
