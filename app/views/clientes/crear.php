@@ -8,30 +8,28 @@
 
 <body>
 
-    <h1>Crear Cliente</h1>
+    <h2>Crear Cliente</h2>
 
-    <form action="" method="POST">
+<form action="/clientes/guardar" method="POST">
 
-        <label>ID Usuario:</label>
-        <input type="number" name="id_usuario">
+    <label>ID Usuario:</label>
+    <input type="number" name="id_usuario">
 
-        <br><br>
+    <br><br>
 
-        <label>Dirección:</label>
-        <input type="text" name="direccion" required>
+    <label>Dirección:</label>
+    <input type="text" name="direccion" required>
 
-        <br><br>
+    <br><br>
 
-        <label>Teléfono:</label>
-        <input type="text" name="telefono" required>
+    <label>Teléfono:</label>
+    <input type="text" name="telefono" required>
 
-        <br><br>
+    <br><br>
 
-        <button type="submit">
-            Guardar Cliente
-        </button>
+    <button type="submit">Guardar Cliente</button>
 
-    </form>
+</form>
 
 </body>
 

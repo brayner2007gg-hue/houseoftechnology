@@ -15,6 +15,23 @@ class CategoriaController
         require_once __DIR__ . "/../views/categorias/index.php";
     }
 
+    public function guardar()
+{
+    $nombre = $_POST['nombre'];
+    $descripcion = $_POST['descripcion'];
+
+    $categoriaModel = new Categoria();
+
+    $resultado = $categoriaModel->guardar($nombre, $descripcion);
+
+    if ($resultado) {
+        echo "Categoría guardada correctamente.";
+        $this->index();
+    } else {
+        echo "Error al guardar la categoría.";
+    }
+}
+
     public function crear()
     {
         require_once __DIR__ . "/../views/categorias/crear.php";

@@ -80,4 +80,76 @@ class Producto
             return false;
         }
     }
+
+    public function guardar($nombre, $descripcion, $precio, $stock, $marca, $categoria, $proveedor)
+{
+    try {
+
+        // Buscar el ID de la categoría
+        $sqlCategoria = "SELECT id_categoria
+                         FROM categoria
+                         WHERE nombre = :categoria";
+
+        $consultaCategoria = $this->connection->prepare($sqlCategoria);
+
+        $consultaCategoria->bindParam(':categoria', $categoria);
+
+        $consultaCategoria->execute();
+
+        $resultadoCategoria = $consultaCategoria->fetch(PDO::FETCH_ASSOC);
+
+        if (!$resultadoCategoria) {
+            echo "La categoría no existe.";
+            return false;
+        }
+
+        $id_categoria = $resultadoCategoria['id_categoria'];
+
+
+        // Buscar el ID del proveedor
+        $sqlProveedor = "SELECT id_proveedor
+                         FROM proveedor
+                         WHERE nombre = :proveedor";
+
+        $consultaProveedor = $this->connection->prepare($sqlProveedor);
+
+        $consultaProveedor->bindParam(':proveedor', $proveedor);
+
+        $consultaProveedor->execute();
+
+        $resultadoProveedor = $consultaProveedor->fetch(PDO::FETCH_ASSOC);
+
+        if (!$resultadoProveedor) {
+            echo "El proveedor no existe.";
+            return false;
+        }
+
+        $id_proveedor = $resultadoProveedor['id_proveedor'];
+
+
+        // Insertar el producto
+        $sql = "INSERT INTO producto
+                (nombre, descripcion, precio, stock, marca, id_categoria, id_proveedor)
+                VALUES
+                (:nombre, :descripcion, :precio, :stock, :marca, :id_categoria, :id_proveedor)";
+
+        $consulta = $this->connection->prepare($sql);
+
+        $consulta->bindParam(':nombre', $nombre);
+        $consulta->bindParam(':descripcion', $descripcion);
+        $consulta->bindParam(':precio', $precio);
+        $consulta->bindParam(':stock', $stock);
+        $consulta->bindParam(':marca', $marca);
+        $consulta->bindParam(':id_categoria', $id_categoria);
+        $consulta->bindParam(':id_proveedor', $id_proveedor);
+
+        return $consulta->execute();
+
+    } catch (PDOException $e) {
+
+        echo "Error al guardar el producto: " . $e->getMessage();
+
+        return false;
+    }
+}
 }

@@ -8,9 +8,9 @@
 
 <body>
 
-<h1>Crear Categoría</h1>
+<h2>Crear Categoría</h2>
 
-<form action="" method="POST">
+<form action="/categorias/guardar" method="POST">
 
     <label>Nombre:</label>
     <input type="text" name="nombre" required>

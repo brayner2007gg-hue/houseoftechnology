@@ -52,4 +52,23 @@ class Categoria
             return false;
         }
     }
+    
+    public function guardar($nombre, $descripcion)
+{
+    try {
+        $sql = "INSERT INTO categoria (nombre, descripcion)
+                VALUES (:nombre, :descripcion)";
+
+        $consulta = $this->connection->prepare($sql);
+
+        $consulta->bindParam(':nombre', $nombre);
+        $consulta->bindParam(':descripcion', $descripcion);
+
+        return $consulta->execute();
+
+    } catch (PDOException $e) {
+        echo "Error al guardar la categoría: " . $e->getMessage();
+        return false;
+    }
+}
 }

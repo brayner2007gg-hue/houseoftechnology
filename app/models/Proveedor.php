@@ -52,4 +52,27 @@ class Proveedor
             return false;
         }
     }
+
+    public function guardar($nombre, $telefono, $correo, $empresa)
+{
+    try {
+        $sql = "INSERT INTO proveedor
+                (nombre, telefono, correo, empresa)
+                VALUES
+                (:nombre, :telefono, :correo, :empresa)";
+
+        $consulta = $this->connection->prepare($sql);
+
+        $consulta->bindParam(':nombre', $nombre);
+        $consulta->bindParam(':telefono', $telefono);
+        $consulta->bindParam(':correo', $correo);
+        $consulta->bindParam(':empresa', $empresa);
+
+        return $consulta->execute();
+
+    } catch (PDOException $e) {
+        echo "Error al guardar el proveedor: " . $e->getMessage();
+        return false;
+    }
+}
 }

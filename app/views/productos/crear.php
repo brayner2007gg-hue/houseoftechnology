@@ -8,50 +8,48 @@
 
 <body>
 
-    <h1>Crear Producto</h1>
+    <h2>Crear Producto</h2>
 
-    <form action="" method="POST">
+<form action="/productos/guardar" method="POST">
 
-        <label>Nombre:</label>
-        <input type="text" name="nombre" required>
+    <label>Nombre:</label>
+    <input type="text" name="nombre" required>
 
-        <br><br>
+    <br><br>
 
-        <label>Descripción:</label>
-        <input type="text" name="descripcion" required>
+    <label>Descripción:</label>
+    <textarea name="descripcion" required></textarea>
 
-        <br><br>
+    <br><br>
 
-        <label>Precio:</label>
-        <input type="number" name="precio" step="0.01" required>
+    <label>Precio:</label>
+    <input type="number" name="precio" step="0.01" required>
 
-        <br><br>
+    <br><br>
 
-        <label>Stock:</label>
-        <input type="number" name="stock" required>
+    <label>Stock:</label>
+    <input type="number" name="stock" required>
 
-        <br><br>
+    <br><br>
 
-        <label>Marca:</label>
-        <input type="text" name="marca" required>
+    <label>Marca:</label>
+    <input type="text" name="marca" required>
 
-        <br><br>
+    <br><br>
 
-        <label>ID Categoría:</label>
-        <input type="number" name="id_categoria" required>
+    <label>Categoría:</label>
+    <input type="text" name="categoria" required>
 
-        <br><br>
+    <br><br>
 
-        <label>ID Proveedor:</label>
-        <input type="number" name="id_proveedor" required>
+    <label>Proveedor:</label>
+    <input type="text" name="proveedor" required>
 
-        <br><br>
+    <br><br>
 
-        <button type="submit">
-            Guardar Producto
-        </button>
+    <button type="submit">Guardar Producto</button>
 
-    </form>
+</form>
 
 </body>
 

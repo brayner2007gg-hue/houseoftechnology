@@ -8,35 +8,33 @@
 
 <body>
 
-    <h1>Crear Proveedor</h1>
+    <h2>Crear Proveedor</h2>
 
-    <form action="" method="POST">
+<form action="/proveedores/guardar" method="POST">
 
-        <label>Nombre:</label>
-        <input type="text" name="nombre" required>
+    <label>Nombre:</label>
+    <input type="text" name="nombre" required>
 
-        <br><br>
+    <br><br>
 
-        <label>Teléfono:</label>
-        <input type="text" name="telefono" required>
+    <label>Teléfono:</label>
+    <input type="text" name="telefono" required>
 
-        <br><br>
+    <br><br>
 
-        <label>Correo:</label>
-        <input type="email" name="correo" required>
+    <label>Correo:</label>
+    <input type="email" name="correo" required>
 
-        <br><br>
+    <br><br>
 
-        <label>Empresa:</label>
-        <input type="text" name="empresa" required>
+    <label>Empresa:</label>
+    <input type="text" name="empresa" required>
 
-        <br><br>
+    <br><br>
 
-        <button type="submit">
-            Guardar Proveedor
-        </button>
+    <button type="submit">Guardar Proveedor</button>
 
-    </form>
+</form>
 
 </body>
 

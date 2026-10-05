@@ -72,4 +72,76 @@ class Especificacion
             return false;
         }
     }
+
+    public function guardar($producto, $proveedor, $nombre, $telefono, $correo, $empresa, $valor)
+{
+    try {
+
+        // Buscar ID del producto
+        $sqlProducto = "SELECT id_producto
+                        FROM producto
+                        WHERE nombre = :producto";
+
+        $consultaProducto = $this->connection->prepare($sqlProducto);
+
+        $consultaProducto->bindParam(':producto', $producto);
+
+        $consultaProducto->execute();
+
+        $resultadoProducto = $consultaProducto->fetch(PDO::FETCH_ASSOC);
+
+        if (!$resultadoProducto) {
+            echo "El producto no existe.";
+            return false;
+        }
+
+        $id_producto = $resultadoProducto['id_producto'];
+
+
+        // Buscar ID del proveedor
+        $sqlProveedor = "SELECT id_proveedor
+                         FROM proveedor
+                         WHERE nombre = :proveedor";
+
+        $consultaProveedor = $this->connection->prepare($sqlProveedor);
+
+        $consultaProveedor->bindParam(':proveedor', $proveedor);
+
+        $consultaProveedor->execute();
+
+        $resultadoProveedor = $consultaProveedor->fetch(PDO::FETCH_ASSOC);
+
+        if (!$resultadoProveedor) {
+            echo "El proveedor no existe.";
+            return false;
+        }
+
+        $id_proveedor = $resultadoProveedor['id_proveedor'];
+
+
+        // Insertar especificación
+        $sql = "INSERT INTO especificaciones
+                (id_producto, id_proveedor, nombre, telefono, correo, empresa, valor)
+                VALUES
+                (:id_producto, :id_proveedor, :nombre, :telefono, :correo, :empresa, :valor)";
+
+        $consulta = $this->connection->prepare($sql);
+
+        $consulta->bindParam(':id_producto', $id_producto);
+        $consulta->bindParam(':id_proveedor', $id_proveedor);
+        $consulta->bindParam(':nombre', $nombre);
+        $consulta->bindParam(':telefono', $telefono);
+        $consulta->bindParam(':correo', $correo);
+        $consulta->bindParam(':empresa', $empresa);
+        $consulta->bindParam(':valor', $valor);
+
+        return $consulta->execute();
+
+    } catch (PDOException $e) {
+
+        echo "Error al guardar la especificación: " . $e->getMessage();
+
+        return false;
+    }
+}
 }

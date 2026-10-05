@@ -60,4 +60,29 @@ class Cliente
             return false;
         }
     }
+
+    public function guardar($id_usuario, $direccion, $telefono)
+{
+    try {
+
+        $sql = "INSERT INTO cliente
+                (id_usuario, direccion, telefono)
+                VALUES
+                (:id_usuario, :direccion, :telefono)";
+
+        $consulta = $this->connection->prepare($sql);
+
+        $consulta->bindParam(':id_usuario', $id_usuario);
+        $consulta->bindParam(':direccion', $direccion);
+        $consulta->bindParam(':telefono', $telefono);
+
+        return $consulta->execute();
+
+    } catch (PDOException $e) {
+
+        echo "Error al guardar el cliente: " . $e->getMessage();
+
+        return false;
+    }
+}
 }

@@ -11,17 +11,17 @@
 
 <body>
 
-<h1>Crear Especificación</h1>
+<h2>Crear Especificación</h2>
 
-<form action="" method="POST">
+<form action="/especificaciones/guardar" method="POST">
 
-    <label>ID Producto:</label>
-    <input type="number" name="id_producto" required>
+    <label>Producto:</label>
+    <input type="text" name="producto" required>
 
     <br><br>
 
-    <label>ID Proveedor:</label>
-    <input type="number" name="id_proveedor" required>
+    <label>Proveedor:</label>
+    <input type="text" name="proveedor" required>
 
     <br><br>
 
@@ -50,9 +50,7 @@
 
     <br><br>
 
-    <button type="submit">
-        Guardar Especificación
-    </button>
+    <button type="submit">Guardar Especificación</button>
 
 </form>
 

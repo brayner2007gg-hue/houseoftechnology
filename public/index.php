@@ -7,6 +7,8 @@ require_once __DIR__ . "/../app/controllers/ClienteController.php";
 require_once __DIR__ . "/../app/controllers/EspecificacionController.php";
 require_once __DIR__ . "/../app/controllers/CompraController.php";
 require_once __DIR__ . "/../app/controllers/PedidoController.php";
+require_once __DIR__ . "/../app/controllers/PagoController.php";
+require_once __DIR__ . "/../app/controllers/CarritoController.php";
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -33,7 +35,10 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         <a href="/productos">Productos</a> /
         <a href="/clientes">Clientes</a> /
         <a href="/especificaciones">Especificaciones</a> /
-        <a href="/compras">Compras</a>
+        <a href="/compras">Compras</a> /
+        <a href="/pedidos">Pedidos</a> /
+        <a href="/pagos">Pagos</a> /
+        <a href="/carrito">Carrito</a> /
 
         <br><br>
 
@@ -42,7 +47,10 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         <a href="/productos/crear">Crear Producto</a> /
         <a href="/clientes/crear">Crear Cliente</a> /
         <a href="/especificaciones/crear">Crear Especificación</a> /
-        <a href="/compras/crear">Crear Compra</a>
+        <a href="/compras/crear">Crear Compra</a> /
+        <a href="/pedidos/crear">Crear Pedido</a> /
+        <a href="/pagos/crear">Crear Pago</a> /
+        <a href="/carrito/crear">Crear Carrito</a> /
 
     </nav>
 
@@ -67,6 +75,11 @@ elseif ($method === 'GET' && $uri === "/categorias/crear") {
 
 }
 
+elseif ($method === 'POST' && $uri === "/categorias/guardar") {
+    $categoriaController = new CategoriaController();
+    $categoriaController->guardar();
+}
+
 elseif ($method === 'GET' && $uri === "/proveedores") {
 
     $proveedorController = new ProveedorController();
@@ -81,6 +94,11 @@ elseif ($method === 'GET' && $uri === "/proveedores/crear") {
 
     $proveedorController->crear();
 
+}
+
+elseif ($method === 'POST' && $uri === "/proveedores/guardar") {
+    $proveedorController = new ProveedorController();
+    $proveedorController->guardar();
 }
 
 elseif ($method === 'GET' && $uri === "/productos") {
@@ -99,6 +117,11 @@ elseif ($method === 'GET' && $uri === "/productos/crear") {
 
 }
 
+elseif ($method === 'POST' && $uri === "/productos/guardar") {
+    $productoController = new ProductoController();
+    $productoController->guardar();
+}
+
 elseif ($method === 'GET' && $uri === "/clientes") {
 
     $clienteController = new ClienteController();
@@ -113,6 +136,11 @@ elseif ($method === 'GET' && $uri === "/clientes/crear") {
 
     $clienteController->crear();
 
+}
+
+elseif ($method === 'POST' && $uri === "/clientes/guardar") {
+    $clienteController = new ClienteController();
+    $clienteController->guardar();
 }
 
 elseif ($method === 'GET' && $uri === "/especificaciones") {
@@ -131,6 +159,11 @@ elseif ($method === 'GET' && $uri === "/especificaciones/crear") {
 
 }
 
+elseif ($method === 'POST' && $uri === "/especificaciones/guardar") {
+    $especificacionController = new EspecificacionController();
+    $especificacionController->guardar();
+}
+
 elseif ($method === 'GET' && $uri === "/compras") {
 
     $compraController = new CompraController();
@@ -144,6 +177,54 @@ elseif ($method === 'GET' && $uri === "/compras/crear") {
     $compraController = new CompraController();
 
     $compraController->crear();
+
+}
+    
+elseif ($method === 'GET' && $uri === "/pedidos") {
+
+    $pedidoController = new PedidoController();
+
+    $pedidoController->index();
+
+}
+
+elseif ($method === 'GET' && $uri === "/pedidos/crear") {
+
+    $pedidoController = new PedidoController();
+
+    $pedidoController->crear();
+
+}
+
+elseif ($method === 'GET' && $uri === "/pagos") {
+
+    $pagoController = new PagoController();
+
+    $pagoController->index();
+
+}
+
+elseif ($method === 'GET' && $uri === "/pagos/crear") {
+
+    $pagoController = new PagoController();
+
+    $pagoController->crear();
+
+}
+
+elseif ($method === 'GET' && $uri === "/carrito") {
+
+    $carritoController = new CarritoController();
+
+    $carritoController->index();
+
+}
+
+elseif ($method === 'GET' && $uri === "/carrito/crear") {
+
+    $carritoController = new CarritoController();
+
+    $carritoController->crear();
 
 }
 
