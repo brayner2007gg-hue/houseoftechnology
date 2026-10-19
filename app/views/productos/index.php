@@ -11,6 +11,7 @@
         <th>Marca</th>
         <th>Categoría</th>
         <th>Proveedor</th>
+        <th>Acciones</th>
     </tr>
 
     <?php foreach ($productos as $productoItem): ?>
@@ -24,6 +25,13 @@
             <td><?= $productoItem['marca'] ?></td>
             <td><?= $productoItem['categoria'] ?></td>
             <td><?= $productoItem['proveedor'] ?></td>
+           
+<td>
+    <a href="/productos/editar?id=<?= $productoItem['id_producto'] ?>">
+        Editar
+    </a>
+</td>
+
         </tr>
 
     <?php endforeach; ?>
@@ -60,6 +68,8 @@
     </tr>
 
 </table>
+
+
 
 <?php else: ?>
 

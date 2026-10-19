@@ -12,6 +12,13 @@ require_once __DIR__ . "/../app/controllers/CarritoController.php";
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$ruta = parse_url($uri, PHP_URL_PATH);
+ 
+if($ruta === "/productos/editar" && $method === "GET") {
+    $productoController = new ProductoController();
+    $productoController->editar();
+    exit;
+}
 
 ?>
 
