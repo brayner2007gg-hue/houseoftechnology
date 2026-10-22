@@ -43,4 +43,17 @@ class ProveedorController
     {
         require_once __DIR__ . "/../views/proveedores/crear.php";
     }
+
+    
+public function editar()
+{
+    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+    $modeloProveedor = new Proveedor();
+
+    $proveedor = $modeloProveedor->getById($id);
+
+    require_once __DIR__ . "/../views/proveedores/editar.php";
+}
+
 }

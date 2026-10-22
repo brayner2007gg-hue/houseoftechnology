@@ -8,6 +8,7 @@
         <th>Teléfono</th>
         <th>Correo</th>
         <th>Empresa</th>
+        <th>Acciones</th>
     </tr>
 
     <?php foreach ($proveedores as $proveedorItem): ?>
@@ -18,6 +19,11 @@
             <td><?= $proveedorItem['telefono'] ?></td>
             <td><?= $proveedorItem['correo'] ?></td>
             <td><?= $proveedorItem['empresa'] ?></td>
+            <td>
+                <a href="/proveedores/editar?id=<?= $proveedorItem['id_proveedor'] ?>">
+                    Editar
+                </a>
+            </td>
         </tr>
 
     <?php endforeach; ?>

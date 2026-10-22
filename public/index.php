@@ -20,6 +20,29 @@ if($ruta === "/productos/editar" && $method === "GET") {
     exit;
 }
 
+
+if ($ruta === "/categorias/editar" && $method === "GET") {
+    $categoriaController = new CategoriaController();
+    $categoriaController->editar();
+    exit;
+}
+
+
+if ($ruta === "/proveedores/editar" && $method === "GET") {
+    $proveedorController = new ProveedorController();
+    $proveedorController->editar();
+    exit;
+}
+
+
+if ($ruta === "/clientes/editar" && $method === "GET") {
+    $clienteController = new ClienteController();
+    $clienteController->editar();
+    exit;
+}
+
+
+
 ?>
 
 <!DOCTYPE html>

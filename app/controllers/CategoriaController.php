@@ -36,4 +36,17 @@ class CategoriaController
     {
         require_once __DIR__ . "/../views/categorias/crear.php";
     }
+
+   
+public function editar()
+{
+    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+    $modeloCategoria = new Categoria();
+
+    $categoria = $modeloCategoria->getById($id);
+
+    require_once __DIR__ . "/../views/categorias/editar.php";
+}
+
 }
