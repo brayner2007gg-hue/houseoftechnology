@@ -1,5 +1,10 @@
 <h1>Listado de Productos</h1>
 
+<?php if (!empty($mensaje)): ?>
+    <p><?= htmlspecialchars($mensaje) ?></p>
+<?php endif; ?>
+
+
 <table border="1">
 
     <tr>
@@ -26,11 +31,26 @@
             <td><?= $productoItem['categoria'] ?></td>
             <td><?= $productoItem['proveedor'] ?></td>
            
+
 <td>
     <a href="/productos/editar?id=<?= $productoItem['id_producto'] ?>">
         Editar
     </a>
+
+    |
+
+    <form action="/productos/eliminar" method="POST"
+          style="display:inline;"
+          onsubmit="return confirm('¿Estás seguro de eliminar este producto?');">
+
+        <input type="hidden" name="id"
+               value="<?= $productoItem['id_producto'] ?>">
+
+        <button type="submit">Eliminar</button>
+
+    </form>
 </td>
+
 
         </tr>
 

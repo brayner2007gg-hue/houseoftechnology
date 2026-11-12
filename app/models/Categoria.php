@@ -71,4 +71,51 @@ class Categoria
         return false;
     }
 }
+
+    // ACTUALIZAR CATEGORIA
+    public function actualizar($id, $nombre, $descripcion)
+    {
+        try {
+            $sql = "UPDATE categoria
+                    SET nombre = :nombre,
+                        descripcion = :descripcion
+                    WHERE id_categoria = :id";
+
+            $consulta = $this->connection->prepare($sql);
+
+            return $consulta->execute([
+                ':nombre' => $nombre,
+                ':descripcion' => $descripcion,
+                ':id' => $id
+            ]);
+
+        } catch (PDOException $e) {
+            echo "Error al actualizar la categoría: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    // ELIMINAR CATEGORIA
+    public function eliminar($id)
+    {
+        try {
+            $sql = "DELETE FROM categoria
+                    WHERE id_categoria = :id";
+
+            $consulta = $this->connection->prepare($sql);
+
+            return $consulta->execute([
+                ':id' => $id
+            ]);
+
+        } catch (PDOException $e) {
+            if ($e->getCode() == '23000') {
+                return 'relacionado';
+            }
+
+            echo "Error al eliminar la categoría: " . $e->getMessage();
+            return false;
+        }
+    }
+
 }

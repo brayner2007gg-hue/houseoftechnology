@@ -1,6 +1,11 @@
 
 <h1>Listado de Categorías</h1>
 
+<?php if (!empty($mensaje)): ?>
+    <p><?= htmlspecialchars($mensaje) ?></p>
+<?php endif; ?>
+
+
 <table border="1">
     <tr>
         <th>ID Categoría</th>
@@ -21,11 +26,26 @@
                 <?= htmlspecialchars($categoriaItem['descripcion'] ?? '') ?>
             </td>
 
-            <td>
-                <a href="/categorias/editar?id=<?= $categoriaItem['id_categoria'] ?>">
-                    Editar
-                </a>
-            </td>
+            
+<td>
+    <a href="/categorias/editar?id=<?= $categoriaItem['id_categoria'] ?>">
+        Editar
+    </a>
+
+    |
+
+    <form action="/categorias/eliminar" method="POST"
+          style="display:inline;"
+          onsubmit="return confirm('¿Estás seguro de eliminar esta categoría?');">
+
+        <input type="hidden" name="id"
+               value="<?= $categoriaItem['id_categoria'] ?>">
+
+        <button type="submit">Eliminar</button>
+
+    </form>
+</td>
+
         </tr>
     <?php endforeach; ?>
 </table>

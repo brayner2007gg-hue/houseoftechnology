@@ -4,16 +4,18 @@ require_once __DIR__ . "/../models/Categoria.php";
 
 class CategoriaController
 {
-    public function index()
-    {
-        $categoriaModel = new Categoria();
+   
+public function index($mensaje = null)
+{
+    $categoriaModel = new Categoria();
 
-        $categorias = $categoriaModel->getAll();
+    $categorias = $categoriaModel->getAll();
 
-        $categoria = $categoriaModel->getById(1);
+    $categoria = $categoriaModel->getById(1);
 
-        require_once __DIR__ . "/../views/categorias/index.php";
-    }
+    require_once __DIR__ . "/../views/categorias/index.php";
+}
+
 
     public function guardar()
 {
@@ -48,5 +50,66 @@ public function editar()
 
     require_once __DIR__ . "/../views/categorias/editar.php";
 }
+
+    // ACTUALIZAR CATEGORIA
+    public function actualizar()
+    {
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+
+        if (!$id) {
+            $this->index("ID de categoría no válido.");
+            return;
+        }
+
+        $nombre = trim($_POST['nombre'] ?? '');
+        $descripcion = trim($_POST['descripcion'] ?? '');
+
+        if ($nombre === '' || $descripcion === '') {
+            $this->index("Todos los campos son obligatorios.");
+            return;
+        }
+
+        $categoriaModel = new Categoria();
+
+        $resultado = $categoriaModel->actualizar(
+            $id,
+            $nombre,
+            $descripcion
+        );
+
+        if ($resultado) {
+            $mensaje = "Categoría actualizada correctamente.";
+        } else {
+            $mensaje = "No se pudo actualizar la categoría.";
+        }
+
+        $this->index($mensaje);
+    }
+
+    // ELIMINAR CATEGORIA
+    public function eliminar()
+    {
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+
+        if (!$id) {
+            $this->index("ID de categoría no válido.");
+            return;
+        }
+
+        $categoriaModel = new Categoria();
+
+        $resultado = $categoriaModel->eliminar($id);
+
+        if ($resultado === true) {
+            $mensaje = "Categoría eliminada correctamente.";
+        } elseif ($resultado === 'relacionado') {
+            $mensaje = "No se puede eliminar: existen productos asociados a esta categoría.";
+        } else {
+            $mensaje = "No se pudo eliminar la categoría.";
+        }
+
+        $this->index($mensaje);
+    }
+
 
 }

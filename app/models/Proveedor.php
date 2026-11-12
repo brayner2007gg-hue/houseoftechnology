@@ -75,4 +75,55 @@ class Proveedor
         return false;
     }
 }
+
+    // ACTUALIZAR PROVEEDOR
+    public function actualizar($id, $nombre, $telefono, $correo, $empresa)
+    {
+        try {
+            $sql = "UPDATE proveedor
+                    SET nombre = :nombre,
+                        telefono = :telefono,
+                        correo = :correo,
+                        empresa = :empresa
+                    WHERE id_proveedor = :id";
+
+            $consulta = $this->connection->prepare($sql);
+
+            return $consulta->execute([
+                ':nombre' => $nombre,
+                ':telefono' => $telefono,
+                ':correo' => $correo,
+                ':empresa' => $empresa,
+                ':id' => $id
+            ]);
+
+        } catch (PDOException $e) {
+            echo "Error al actualizar el proveedor: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    // ELIMINAR PROVEEDOR
+    public function eliminar($id)
+    {
+        try {
+            $sql = "DELETE FROM proveedor
+                    WHERE id_proveedor = :id";
+
+            $consulta = $this->connection->prepare($sql);
+
+            return $consulta->execute([
+                ':id' => $id
+            ]);
+
+        } catch (PDOException $e) {
+            if ($e->getCode() == '23000') {
+                return 'relacionado';
+            }
+
+            echo "Error al eliminar el proveedor: " . $e->getMessage();
+            return false;
+        }
+    }
+
 }

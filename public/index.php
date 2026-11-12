@@ -110,6 +110,17 @@ elseif ($method === 'POST' && $uri === "/categorias/guardar") {
     $categoriaController->guardar();
 }
 
+elseif ($method === 'POST' && $uri === "/categorias/actualizar") {
+    $categoriaController = new CategoriaController();
+    $categoriaController->actualizar();
+}
+
+elseif ($method === 'POST' && $uri === "/categorias/eliminar") {
+    $categoriaController = new CategoriaController();
+    $categoriaController->eliminar();
+}
+
+
 elseif ($method === 'GET' && $uri === "/proveedores") {
 
     $proveedorController = new ProveedorController();
@@ -131,6 +142,17 @@ elseif ($method === 'POST' && $uri === "/proveedores/guardar") {
     $proveedorController->guardar();
 }
 
+elseif ($method === 'POST' && $uri === "/proveedores/actualizar") {
+    $proveedorController = new ProveedorController();
+    $proveedorController->actualizar();
+}
+
+elseif ($method === 'POST' && $uri === "/proveedores/eliminar") {
+    $proveedorController = new ProveedorController();
+    $proveedorController->eliminar();
+}
+
+
 elseif ($method === 'GET' && $uri === "/productos") {
 
     $productoController = new ProductoController();
@@ -151,6 +173,18 @@ elseif ($method === 'POST' && $uri === "/productos/guardar") {
     $productoController = new ProductoController();
     $productoController->guardar();
 }
+
+
+elseif ($method === 'POST' && $uri === "/productos/actualizar") {
+    $productoController = new ProductoController();
+    $productoController->actualizar();
+}
+
+elseif ($method === 'POST' && $uri === "/productos/eliminar") {
+    $productoController = new ProductoController();
+    $productoController->eliminar();
+}
+
 
 elseif ($method === 'GET' && $uri === "/clientes") {
 

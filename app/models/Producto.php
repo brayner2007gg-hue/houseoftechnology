@@ -152,4 +152,88 @@ class Producto
         return false;
     }
 }
+
+    // ACTUALIZAR PRODUCTO
+    public function actualizar($id, $nombre, $descripcion, $precio, $stock, $marca, $categoria, $proveedor)
+    {
+        try {
+            // Buscar el ID de la categoría
+            $sqlCategoria = "SELECT id_categoria FROM categoria WHERE nombre = :categoria";
+            $consultaCategoria = $this->connection->prepare($sqlCategoria);
+            $consultaCategoria->execute([':categoria' => $categoria]);
+
+            $resultadoCategoria = $consultaCategoria->fetch(PDO::FETCH_ASSOC);
+
+            if (!$resultadoCategoria) {
+                return false;
+            }
+
+            $id_categoria = $resultadoCategoria['id_categoria'];
+
+            // Buscar el ID del proveedor
+            $sqlProveedor = "SELECT id_proveedor FROM proveedor WHERE nombre = :proveedor";
+            $consultaProveedor = $this->connection->prepare($sqlProveedor);
+            $consultaProveedor->execute([':proveedor' => $proveedor]);
+
+            $resultadoProveedor = $consultaProveedor->fetch(PDO::FETCH_ASSOC);
+
+            if (!$resultadoProveedor) {
+                return false;
+            }
+
+            $id_proveedor = $resultadoProveedor['id_proveedor'];
+
+            // Actualizar los datos del producto
+            $sql = "UPDATE producto SET
+                        nombre = :nombre,
+                        descripcion = :descripcion,
+                        precio = :precio,
+                        stock = :stock,
+                        marca = :marca,
+                        id_categoria = :id_categoria,
+                        id_proveedor = :id_proveedor
+                    WHERE id_producto = :id";
+
+            $consulta = $this->connection->prepare($sql);
+
+            return $consulta->execute([
+                ':nombre' => $nombre,
+                ':descripcion' => $descripcion,
+                ':precio' => $precio,
+                ':stock' => $stock,
+                ':marca' => $marca,
+                ':id_categoria' => $id_categoria,
+                ':id_proveedor' => $id_proveedor,
+                ':id' => $id
+            ]);
+
+        } catch (PDOException $e) {
+            echo "Error al actualizar el producto: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    // ELIMINAR PRODUCTO
+    public function eliminar($id)
+    {
+        try {
+            $sql = "DELETE FROM producto WHERE id_producto = :id";
+
+            $consulta = $this->connection->prepare($sql);
+
+            return $consulta->execute([
+                ':id' => $id
+            ]);
+
+        } catch (PDOException $e) {
+            // SQLSTATE 23000: el producto tiene registros relacionados
+            if ($e->getCode() == '23000') {
+                return 'relacionado';
+            }
+
+            echo "Error al eliminar el producto: " . $e->getMessage();
+            return false;
+        }
+    }
+
 }

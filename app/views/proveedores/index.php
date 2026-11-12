@@ -1,5 +1,10 @@
 <h1>Listado de Proveedores</h1>
 
+<?php if (!empty($mensaje)): ?>
+    <p><?= htmlspecialchars($mensaje) ?></p>
+<?php endif; ?>
+
+
 <table border="1">
 
     <tr>
@@ -19,11 +24,26 @@
             <td><?= $proveedorItem['telefono'] ?></td>
             <td><?= $proveedorItem['correo'] ?></td>
             <td><?= $proveedorItem['empresa'] ?></td>
-            <td>
-                <a href="/proveedores/editar?id=<?= $proveedorItem['id_proveedor'] ?>">
-                    Editar
-                </a>
-            </td>
+            
+<td>
+    <a href="/proveedores/editar?id=<?= $proveedorItem['id_proveedor'] ?>">
+        Editar
+    </a>
+
+    |
+
+    <form action="/proveedores/eliminar" method="POST"
+          style="display:inline;"
+          onsubmit="return confirm('¿Estás seguro de eliminar este proveedor?');">
+
+        <input type="hidden" name="id"
+               value="<?= $proveedorItem['id_proveedor'] ?>">
+
+        <button type="submit">Eliminar</button>
+
+    </form>
+</td>
+
         </tr>
 
     <?php endforeach; ?>
